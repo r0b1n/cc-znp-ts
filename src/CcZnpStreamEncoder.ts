@@ -1,13 +1,13 @@
-import { Transform } from "stream";
+import { Transform, TransformCallback } from "stream";
 
 const SOF = 0xfe; // start of frame magic byte
 
-export class CcZnpEncoder extends Transform {
-    static calculateChecksum(len, frame) {
+export class CcZnpStreamEncoder extends Transform {
+    static calculateChecksum(len: number, frame: Buffer) {
         return len ^ frame.reduce((a, b) => a ^ b);
     }
 
-    _transform(data: Buffer, _, cb) {
+    _transform(data: Buffer, _: string, cb: TransformCallback) {
         const frame = new Buffer(data.length + 3); // buffer size = SOF + length + checksum
 
         const dataLen = data.length - 2;
@@ -22,7 +22,7 @@ export class CcZnpEncoder extends Transform {
         data.copy(frame, 2);
 
         // checksum
-        frame.writeUInt8(CcZnpEncoder.calculateChecksum(dataLen, data), dataLen + 4); // checksum
+        frame.writeUInt8(CcZnpStreamEncoder.calculateChecksum(dataLen, data), dataLen + 4); // checksum
 
         this.push(frame);
         cb();

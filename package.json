@@ -8,17 +8,28 @@
   "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "pretty": "prettier --write 'src/**/*.ts'"
+    "pretty": "prettier --write '{src,test}/**/*.ts'",
+    "lint": "eslint '{src,test}/**/*.ts'"
   },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/r0b1n/cc-znp-ts.git"
   },
   "dependencies": {
+    "serialport": "^7.1.5"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.15",
     "@types/node": "^12.0.8",
     "@types/serialport": "^7.0.3",
+    "@typescript-eslint/eslint-plugin": "^1.10.2",
+    "@typescript-eslint/parser": "^1.10.2",
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^5.0.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "jest": "^24.8.0",
     "prettier": "^1.18.2",
-    "serialport": "^7.1.5",
+    "ts-jest": "^24.0.2",
     "ts-node": "^8.3.0",
     "typescript": "^3.5.2"
   }

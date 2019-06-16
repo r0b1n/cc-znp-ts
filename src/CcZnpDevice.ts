@@ -1,12 +1,49 @@
-import { CcZnpStream } from './CcZnpStream'
-import { asHex, getCmdType } from './untils'
-import { EventEmitter } from 'events'
-import { CcZnpCommandType } from './types'
+import { CcZnpStream } from "./CcZnpStream";
+import { asHex, getCmdType, printPacketData } from "./untils";
+import { EventEmitter } from "events";
+import { CcZnpCommandType } from "./types";
+
+class CcZnpCall {
+    private readonly subSystem: number;
+    private readonly cmd: number;
+    private readonly data: number[];
+    private resolve: (value?: Buffer) => void = null;
+    private reject: (reason?: any) => void = null;
+
+    constructor(subSystem: number, cmd: number, data?: number[]) {
+        this.subSystem = subSystem;
+        this.cmd = cmd;
+        this.data = data || [];
+    }
+
+    getPromise() {
+        return new Promise<Buffer>((resolve, reject) => {
+            this.resolve = resolve;
+            this.reject = reject;
+        });
+    }
+
+    isAsync() {
+        return getCmdType(this.subSystem) === CcZnpCommandType.AREQ;
+    }
+
+    getPayload() {
+        return new Buffer([this.subSystem, this.cmd, ...this.data]);
+    }
+
+    processResult(data?: Buffer) {
+        this.resolve(data ? data.slice(2) : undefined);
+    }
+
+    processTimeout() {
+        this.reject(`Got timeout in ${asHex(this.subSystem)} ${asHex(this.cmd)}`);
+    }
+}
 
 export class CcZnpDevice extends EventEmitter {
     private readonly path: string;
-    private stream: CcZnpStream;
-    private _lock: Boolean = false;
+    private stream: CcZnpStream = null;
+    private _lock: boolean = false;
     private ongoingCommand: CcZnpCall = null;
     private ongoingCommandTimeout: NodeJS.Timeout = null;
     private txQueue: CcZnpCall[] = [];
@@ -38,7 +75,7 @@ export class CcZnpDevice extends EventEmitter {
         });
     }
 
-    request(subSystem: number, cmd: number, data?: number[]) {
+    request(subSystem: number, cmd: number, data?: number[]): Promise<Buffer> {
         const command = new CcZnpCall(subSystem, cmd, data);
 
         this.txQueue.push(command);
@@ -56,8 +93,8 @@ export class CcZnpDevice extends EventEmitter {
         this._lock = false;
     }
 
-    private handleIncomingPacket(data) {
-        // printPacketData(data);
+    private handleIncomingPacket(data: Buffer) {
+        printPacketData(data);
         const cmdType = getCmdType(data.readUInt8(0));
 
         if (cmdType === CcZnpCommandType.SRSP) {
@@ -114,42 +151,5 @@ export class CcZnpDevice extends EventEmitter {
             this.unlock();
             this.nextTx();
         }, 5000);
-    }
-}
-
-class CcZnpCall {
-    private readonly subSystem: number;
-    private readonly cmd: number;
-    private readonly data: number[];
-    private resolve = null;
-    private reject = null;
-
-    constructor(subSystem: number, cmd: number, data?: number[]) {
-        this.subSystem = subSystem;
-        this.cmd = cmd;
-        this.data = data || [];
-    }
-
-    getPromise() {
-        return new Promise<any>((resolve, reject) => {
-            this.resolve = resolve;
-            this.reject = reject;
-        });
-    }
-
-    isAsync() {
-        return getCmdType(this.subSystem) === CcZnpCommandType.AREQ;
-    }
-
-    getPayload() {
-        return new Buffer([this.subSystem, this.cmd, ...this.data]);
-    }
-
-    processResult(data: Buffer) {
-        this.resolve(data ? data.slice(2) : null);
-    }
-
-    processTimeout() {
-        this.reject(`Got timeout in ${asHex(this.subSystem)} ${asHex(this.cmd)}`);
     }
 }

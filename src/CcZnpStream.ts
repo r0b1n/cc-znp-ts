@@ -1,7 +1,7 @@
 import { EventEmitter } from "events";
 import * as SerialPort from "serialport";
-import { CcZnpParser } from "./CcZnpParser";
-import { CcZnpEncoder } from "./CcZnpEncoder";
+import { CcZnpStreamDecoder } from "./CcZnpStreamDecoder";
+import { CcZnpStreamEncoder } from "./CcZnpStreamEncoder";
 
 interface SerialPortConfig {
     path: string;
@@ -11,18 +11,19 @@ interface SerialPortConfig {
 export class CcZnpStream extends EventEmitter {
     private readonly MAGIC_INIT_BYTE = 0xef;
     private readonly serial: SerialPort;
-    private readonly parser: CcZnpParser;
-    private encoder: CcZnpEncoder;
+    private readonly decoder: CcZnpStreamDecoder;
+    private readonly encoder: CcZnpStreamEncoder;
 
     private init: boolean = false;
 
     constructor(serialPortConfig: SerialPortConfig) {
         super();
         this.serial = new SerialPort(serialPortConfig.path, serialPortConfig.options);
-        this.parser = new CcZnpParser();
-        this.encoder = new CcZnpEncoder();
-        this.serial.pipe(this.parser);
+        this.decoder = new CcZnpStreamDecoder();
+        this.encoder = new CcZnpStreamEncoder();
+        this.serial.pipe(this.decoder);
 
+        // TODO: figure out why typescript doesn't allow to pass serial to the pipe
         // @ts-ignore
         this.encoder.pipe(this.serial);
 
@@ -43,7 +44,7 @@ export class CcZnpStream extends EventEmitter {
             this.emit("close", "connection got an error" + a);
         });
 
-        this.parser.on("data", data => {
+        this.decoder.on("data", data => {
             this.emit("data", data);
         });
     }
