@@ -1,4 +1,7 @@
-const asHex = num => "0x" + num.toString(16).padStart(2, "0");
+import { CcZnpCommandType } from "./types";
+
+export const getCmdType = (cmd): CcZnpCommandType => cmd & 0x60;
+export const asHex = num => "0x" + num.toString(16).padStart(2, "0");
 export const printPacketData = (data: Buffer) => {
     const cmd0 = data.readUInt8(0);
     const cmd1 = data.readUInt8(1);

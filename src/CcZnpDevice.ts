@@ -1,15 +1,18 @@
-import { CcZnpStream } from "./CcZnpStream";
-import { printPacketData } from "./untils";
+import { CcZnpStream } from './CcZnpStream'
+import { asHex, getCmdType } from './untils'
+import { EventEmitter } from 'events'
+import { CcZnpCommandType } from './types'
 
-export class CcZnpDevice {
+export class CcZnpDevice extends EventEmitter {
     private readonly path: string;
     private stream: CcZnpStream;
     private _lock: Boolean = false;
-    private processedCommand: CcZnpCall = null;
-    private processedCommandTimeout: NodeJS.Timeout = null;
+    private ongoingCommand: CcZnpCall = null;
+    private ongoingCommandTimeout: NodeJS.Timeout = null;
     private txQueue: CcZnpCall[] = [];
 
     constructor(path: string) {
+        super();
         this.path = path;
     }
 
@@ -31,7 +34,7 @@ export class CcZnpDevice {
                 resolve();
             });
 
-            this.stream.on("data", data => this.parsePacket(data));
+            this.stream.on("data", data => this.handleIncomingPacket(data));
         });
     }
 
@@ -53,12 +56,29 @@ export class CcZnpDevice {
         this._lock = false;
     }
 
-    private parsePacket(data) {
+    private handleIncomingPacket(data) {
         // printPacketData(data);
-        this.processedCommand.processResult(data);
-        clearTimeout(this.processedCommandTimeout);
-        this.unlock();
-        this.nextTx();
+        const cmdType = getCmdType(data.readUInt8(0));
+
+        if (cmdType === CcZnpCommandType.SRSP) {
+            this.ongoingCommand.processResult(data);
+            clearTimeout(this.ongoingCommandTimeout);
+            this.ongoingCommandTimeout = null;
+            this.ongoingCommand = null;
+            this.unlock();
+            this.nextTx();
+            return;
+        }
+
+        this.emit(this.generateAsyncTopic(data), data.slice(2));
+        return;
+    }
+
+    private generateAsyncTopic(data: Buffer) {
+        const subSystem = asHex(data.readUInt8(0));
+        const command = asHex(data.readUInt8(1));
+
+        return `AREQ:${subSystem}:${command}`;
     }
 
     private send(payload: Buffer) {
@@ -72,12 +92,25 @@ export class CcZnpDevice {
 
         this.lock();
 
-        this.processedCommand = this.txQueue.shift();
+        const command = this.txQueue.shift();
+        this.send(command.getPayload());
 
-        this.send(this.processedCommand.getPayload());
+        if (command.isAsync()) {
+            setImmediate(() => {
+                command.processResult(null);
 
-        this.processedCommandTimeout = setTimeout(() => {
-            this.processedCommand.processTimeout();
+                this.unlock();
+                this.nextTx();
+            });
+            return;
+        }
+
+        this.ongoingCommand = command;
+
+        this.ongoingCommandTimeout = setTimeout(() => {
+            this.ongoingCommand.processTimeout();
+            this.ongoingCommandTimeout = null;
+            this.ongoingCommand = null;
             this.unlock();
             this.nextTx();
         }, 5000);
@@ -104,15 +137,19 @@ class CcZnpCall {
         });
     }
 
+    isAsync() {
+        return getCmdType(this.subSystem) === CcZnpCommandType.AREQ;
+    }
+
     getPayload() {
-        return new Buffer([this.subSystem | 0x20, this.cmd, ...this.data]);
+        return new Buffer([this.subSystem, this.cmd, ...this.data]);
     }
 
     processResult(data: Buffer) {
-        this.resolve(data.slice(2));
+        this.resolve(data ? data.slice(2) : null);
     }
 
     processTimeout() {
-        this.reject(`Got timeout in ${this.subSystem} ${this.cmd}`);
+        this.reject(`Got timeout in ${asHex(this.subSystem)} ${asHex(this.cmd)}`);
     }
 }

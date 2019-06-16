@@ -1,5 +1,7 @@
 import { CcZnpDevice } from "./src/CcZnpDevice";
-import { CcZnpSubSystem, SYSCommand, UTILCommand } from "./some-types";
+import { CcZnpSubSystem, CcZnpCommandType } from "./src/types";
+
+import { SYSCommand, UTILCommand } from "./some-types";
 
 (async () => {
     const znpDevice = new CcZnpDevice("/dev/tty.usbmodem14101");
@@ -10,6 +12,10 @@ import { CcZnpSubSystem, SYSCommand, UTILCommand } from "./some-types";
 
     await ping(znpDevice);
     await getVersion(znpDevice);
+    znpDevice.once("AREQ:0x47:0xe0", () => {
+        console.log("Got synchronization response from the device");
+    });
+    await asyncSynchronizationRequest(znpDevice);
 
     console.log("Ok, lets start the disco!");
     startDisco(znpDevice);
@@ -31,7 +37,7 @@ const deviceCapabilities = (field: number) => ({
 
 const ping = async (device: CcZnpDevice) => {
     try {
-        const data = await device.request(CcZnpSubSystem.SYS, SYSCommand.ping);
+        const data = await device.request(CcZnpSubSystem.SYS | CcZnpCommandType.SREQ, SYSCommand.ping);
         console.log("Device capabilities are:");
         console.log(deviceCapabilities(data.readUInt16LE(0)));
     } catch (e) {
@@ -41,7 +47,7 @@ const ping = async (device: CcZnpDevice) => {
 
 const getVersion = async (device: CcZnpDevice) => {
     try {
-        const data = await device.request(CcZnpSubSystem.SYS, SYSCommand.version);
+        const data = await device.request(CcZnpSubSystem.SYS | CcZnpCommandType.SREQ, SYSCommand.version);
         console.log("Device version is:");
         console.log(data.toString("hex")); // todo: parse hex
     } catch (e) {
@@ -83,8 +89,17 @@ const startDisco = (device: CcZnpDevice) => {
 };
 
 const setLedStatus = async (device: CcZnpDevice, ledId: number, status: LEDStatus) => {
-    const result = await device.request(CcZnpSubSystem.UTIL, UTILCommand.ledControl, [ledId, status]);
+    const result = await device.request(CcZnpSubSystem.UTIL | CcZnpCommandType.SREQ, UTILCommand.ledControl, [ledId, status]);
     if (result.readUInt8(0) !== 0) {
         throw new Error("Error while setting LED status");
+    }
+};
+
+const asyncSynchronizationRequest = async (device: CcZnpDevice) => {
+    try {
+        await device.request(CcZnpSubSystem.UTIL | CcZnpCommandType.AREQ, 0xe0);
+        console.log("Synchronization request has been sent to the device");
+    } catch (e) {
+        console.log(e);
     }
 };
