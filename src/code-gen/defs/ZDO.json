@@ -1,0 +1,2341 @@
+[
+  {
+    "commandId": "ZDO_NWK_ADDR_REQ",
+    "type": "SREQ",
+    "code": "0x00",
+    "params": {
+      "request": [
+        {
+          "name": "IEEEAddress",
+          "type": "longaddr"
+        },
+        {
+          "name": "ReqType",
+          "type": "uint8",
+          "__comment": [ "enum", { "single": "0x00", "extended": "0x01" } ]
+        },
+        {
+          "name": "StartIndex",
+          "type": "uint8"
+        }
+      ],
+      "response": [
+        {
+          "name": "Status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_IEEE_ADDR_REQ",
+    "type": "SREQ",
+    "code": "0x01",
+    "params": {
+      "request": [
+        {
+          "name": "ShortAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "ReqType",
+          "type": "uint8",
+          "__comment": [ "enum", { "single": "0x00", "extended": "0x01" } ]
+        },
+        {
+          "name": "StartIndex",
+          "type": "uint8"
+        }
+      ],
+      "response": [
+        {
+          "name": "Status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_NODE_DESC_REQ",
+    "type": "SREQ",
+    "code": "0x02",
+    "params": {
+      "request": [
+        {
+          "name": "DstAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "NWKAddrOfInterest",
+          "type": "shortaddr"
+        }
+      ],
+      "response": [
+        {
+          "name": "Status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_POWER_DESC_REQ",
+    "type": "SREQ",
+    "code": "0x03",
+    "params": {
+      "request": [
+        {
+          "name": "DstAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "NWKAddrOfInterest",
+          "type": "shortaddr"
+        }
+      ],
+      "response": [
+        {
+          "name": "Status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_SIMPLE_DESC_REQ",
+    "type": "SREQ",
+    "code": "0x04",
+    "params": {
+      "request": [
+        {
+          "name": "DstAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "NWKAddrOfInterest",
+          "type": "shortaddr"
+        },
+        {
+          "name": "Endpoint",
+          "type": "uint8"
+        }
+      ],
+      "response": [
+        {
+          "name": "Status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_ACTIVE_EP_REQ",
+    "type": "SREQ",
+    "code": "0x05",
+    "params": {
+      "request": [
+        {
+          "name": "DstAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "NWKAddrOfInterest",
+          "type": "shortaddr"
+        }
+      ],
+      "response": [
+        {
+          "name": "Status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_MATCH_DESC_REQ",
+    "type": "SREQ",
+    "code": "0x06",
+    "params": {
+      "request": [
+        {
+          "name": "DstAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "NWKAddrOfInterest",
+          "type": "shortaddr"
+        },
+        {
+          "name": "ProfileId",
+          "type": "uint16"
+        },
+        {
+          "name": "NumInClusters",
+          "type": "uint8"
+        },
+        {
+          "name": "InClusterList",
+          "type": ["buffer", "NumInClusters", 2]
+        },
+        {
+          "name": "NumOutClusters",
+          "type": "uint8"
+        },
+        {
+          "name": "OutClusterList",
+          "type": ["buffer", "NumInClusters", 2]
+        }
+      ],
+      "response": [
+        {
+          "name": "Status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_COMPLEX_DESC_REQ",
+    "type": "SREQ",
+    "code": "0x07",
+    "params": {
+      "request": [
+        {
+          "name": "DstAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "NWKAddrOfInterest",
+          "type": "shortaddr"
+        }
+      ],
+      "response": [
+        {
+          "name": "Status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_USER_DESC_REQ",
+    "type": "SREQ",
+    "code": "0x08",
+    "params": {
+      "request": [
+        {
+          "name": "DstAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "NWKAddrOfInterest",
+          "type": "shortaddr"
+        }
+      ],
+      "response": [
+        {
+          "name": "Status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_END_DEVICE_ANNCE",
+    "type": "SREQ",
+    "code": "0x0A",
+    "params": {
+      "request": [
+        {
+          "name": "NwkAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "IEEEAddr",
+          "type": "longaddr"
+        },
+        {
+          "name": "Capabilites",
+          "type": "uint8",
+          "__comment": "todo: bitmask"
+        }
+      ],
+      "response": [
+        {
+          "name": "Status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_USER_DESC_SET",
+    "type": "SREQ",
+    "code": "0x0B",
+    "params": {
+      "request": [
+        {
+          "name": "DstAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "NWKAddrOfInterest",
+          "type": "shortaddr"
+        },
+        {
+          "name": "Len",
+          "type": "uint8"
+        },
+        {
+          "name": "UserDescriptor",
+          "type": [ "buffer", "Len"],
+          "__comment": "todo: array of user descriptors"
+        }
+      ],
+      "response": [
+        {
+          "name": "Status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_SERVER_DISC_REQ",
+    "type": "SREQ",
+    "code": "0x0C",
+    "params": {
+      "request": [
+        {
+          "name": "ServerMask",
+          "type": "uint16",
+          "__comment": "todo: sever capabilities"
+        }
+      ],
+      "response": [
+        {
+          "name": "Status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_END_DEVICE_BIND_REQ",
+    "type": "SREQ",
+    "code": "0x20",
+    "params": {
+      "request": [
+        {
+          "name": "DstAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "LocalCoordinator",
+          "type": "uint16"
+        },
+        {
+          "name": "IEEE",
+          "type": "longaddr"
+        },
+        {
+          "name": "Endpoint",
+          "type": "uint8"
+        },
+        {
+          "name": "ProfileId",
+          "type": "uint16"
+        },
+        {
+          "name": "NumInClusters",
+          "type": "uint8"
+        },
+        {
+          "name": "InClusterList",
+          "type": ["buffer", "NumInClusters", 2]
+        },
+        {
+          "name": "NumOutClusters",
+          "type": "uint8"
+        },
+        {
+          "name": "OutClusterList",
+          "type": ["buffer", "NumOutClusters", 2]
+        }
+      ],
+      "response": [
+        {
+          "name": "Status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_BIND_REQ",
+    "type": "SREQ",
+    "code": "0x21",
+    "params": {
+      "request": [
+        {
+          "name": "DstAddr",
+          "type": "uint16"
+        },
+        {
+          "name": "SrcAddress",
+          "type": "longaddr"
+        },
+        {
+          "name": "SrcEndpoint",
+          "type": "uint8"
+        },
+        {
+          "name": "ClusterId",
+          "type": "uint16"
+        },
+        {
+          "name": "DstAddrMode",
+          "type": "uint8",
+          "__comment": "todo: enum"
+        },
+        {
+          "name": "DstAddress",
+          "type": "longaddr",
+          "__comment": "todo: different address type possible"
+        },
+        {
+          "name": "DstEndpoint",
+          "type": "uint8",
+          "__comment": "todo: may be not present"
+        }
+      ],
+      "response": [
+        {
+          "name": "Status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_UNBIND_REQ",
+    "type": "SREQ",
+    "code": "0x22",
+    "params": {
+      "request": [
+        {
+          "name": "DstAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "SrcAddress",
+          "type": "longaddr"
+        },
+        {
+          "name": "SrcEndpoint",
+          "type": "uint8"
+        },
+        {
+          "name": "ClusterI",
+          "type": "uint16"
+        },
+        {
+          "name": "DstAddrMode",
+          "type": "uint8",
+          "__comment": "todo: enum"
+        },
+        {
+          "name": "DstAddress",
+          "type": "longaddr",
+          "__comment": "todo: different address type possible"
+        },
+        {
+          "name": "DstEndpoint",
+          "type": "uint8"
+        }
+      ],
+      "response": [
+        {
+          "name": "Status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_SET_LINK_KEY",
+    "type": "SREQ",
+    "code": "0x23",
+    "params": {
+      "request": [
+        {
+          "name": "ShortAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "IEEEAddr",
+          "type": "longaddr"
+        },
+        {
+          "name": "LinkKeyData",
+          "type": ["buffer", 16]
+        }
+      ],
+      "response": [
+        {
+          "name": "Status",
+          "type": "uint8",
+          "__comment": "maybe not a boolean but enum"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_REMOVE_LINK_KEY",
+    "type": "SREQ",
+    "code": "0x24",
+    "params": {
+      "request": [
+        {
+          "name": "IEEEAddr",
+          "type": "longaddr"
+        }
+      ],
+      "response": [
+        {
+          "name": "Status",
+          "type": "uint8",
+          "__comment": "maybe not a boolean but enum"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_GET_LINK_KEY",
+    "type": "SREQ",
+    "code": "0x25",
+    "params": {
+      "request": [
+        {
+          "name": "IEEEAddr",
+          "type": "longaddr"
+        }
+      ],
+      "response": [
+        {
+          "name": "Status",
+          "type": "uint8",
+          "__comment": "maybe not a boolean but enum"
+        },
+        {
+          "name": "IEEEAddr",
+          "type": "longaddr"
+        },
+        {
+          "name": "LinkKeyData",
+          "type": ["buffer", 16]
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_NWK_DISCOVERY_REQ",
+    "type": "SREQ",
+    "code": "0x26",
+    "params": {
+      "request": [
+        {
+          "name": "ScanChannels",
+          "type": "uint32",
+          "__comment": "enum of channel numbers"
+        },
+        {
+          "name": "ScanDuration",
+          "type": "uint8"
+        }
+      ],
+      "response": [
+        {
+          "name": "status",
+          "type": "uint8",
+          "__comment": "enum with scan statuses"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_JOIN_REQ",
+    "type": "SREQ",
+    "code": "0x27",
+    "params": {
+      "request": [
+        {
+          "name": "LogicalChannel",
+          "type": "uint8"
+        },
+        {
+          "name": "PanID",
+          "type": "uint16",
+          "__comment": "pan id type?"
+        },
+        {
+          "name": "ExtendedPanID",
+          "type": "longaddr",
+          "__comment": "extended pan id type?"
+        },
+        {
+          "name": "ChosenParent",
+          "type": "uint16"
+        },
+        {
+          "name": "ParentDepth",
+          "type": "uint8"
+        },
+        {
+          "name": "StackProfile",
+          "type": "uint8"
+        }
+      ],
+      "response": [
+        {
+          "name": "Status",
+          "type": "uint8",
+          "__comment": "enum with statuses"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_SET_REJOIN_PARAMETERS",
+    "type": "SREQ",
+    "code": "0xCC",
+    "__comment": " recheck command id",
+    "params": {
+      "request": [
+        {
+          "name": "BackoffDuration",
+          "type": "uint32"
+        },
+        {
+          "name": "ScanDuration",
+          "type": "uint32"
+        }
+      ],
+      "response": [
+        {
+          "name": "Status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_MGMT_NWK_DISC_REQ",
+    "type": "SREQ",
+    "code": "0x30",
+    "params": {
+      "request": [
+        {
+          "name": "DstAddr",
+          "type": "uint16"
+        },
+        {
+          "name": "ScanChannels",
+          "type": "uint32",
+          "__comment": "enum of channel numbers"
+        },
+        {
+          "name": "ScanDuration",
+          "type": "uint8"
+        },
+        {
+          "name": "StartIndex",
+          "type": "uint8"
+        }
+      ],
+      "response": [
+        {
+          "name": "Status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_MGMT_LQI_REQ",
+    "type": "SREQ",
+    "code": "0x31",
+    "params": {
+      "request": [
+        {
+          "name": "DstAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "StartIndex",
+          "type": "uint8"
+        }
+      ],
+      "response": [
+        {
+          "name": "Status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_MGMT_RTG_REQ",
+    "type": "SREQ",
+    "code": "0x32",
+    "params": {
+      "request": [
+        {
+          "name": "DstAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "StartIndex",
+          "type": "uint8"
+        }
+      ],
+      "response": [
+        {
+          "name": "Status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_MGMT_BIND_REQ",
+    "type": "SREQ",
+    "code": "0x33",
+    "params": {
+      "request": [
+        {
+          "name": "DstAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "StartIndex",
+          "type": "uint8"
+        }
+      ],
+      "response": [
+        {
+          "name": "Status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_MGMT_LEAVE_REQ",
+    "type": "SREQ",
+    "code": "0x34",
+    "params": {
+      "request": [
+        {
+          "name": "DstAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "DeviceAddress",
+          "type": "longaddr"
+        },
+        {
+          "name": "RemoveChildren_Rejoin",
+          "type": "uint8",
+          "__comment": "bit flags"
+        }
+      ],
+      "response": [
+        {
+          "name": "Status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_MGMT_DIRECT_JOIN_REQ",
+    "type": "SREQ",
+    "code": "0x35",
+    "params": {
+      "request": [
+        {
+          "name": "DstAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "DeviceAddress",
+          "type": "longaddr"
+        },
+        {
+          "name": "CapInfo",
+          "type": "uint8",
+          "__comment": "bit flags"
+        }
+      ],
+      "response": [
+        {
+          "name": "Status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_MGMT_PERMIT_JOIN_REQ",
+    "type": "SREQ",
+    "code": "0x36",
+    "params": {
+      "request": [
+        {
+          "name": "AddrMode",
+          "type": "uint8",
+          "__comment": "enum here"
+        },
+        {
+          "name": "DstAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "Duration",
+          "type": "uint8"
+        },
+        {
+          "name": "TCSignificance",
+          "type": "uint8",
+          "__comment": "Trust Center Significance. WAT?"
+        }
+      ],
+      "response": [
+        {
+          "name": "Status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_MGMT_NWK_UPDATE_REQ",
+    "type": "SREQ",
+    "code": "0x37",
+    "params": {
+      "request": [
+        {
+          "name": "DstAddr",
+          "type": "uint16"
+        },
+        {
+          "name": "DstAddrMode",
+          "type": "uint8",
+          "__comment": "Address mode here"
+        },
+        {
+          "name": "ChannelMask",
+          "type": "uint32",
+          "_-comment": "channel number here"
+        },
+        {
+          "name": "ScanDuration",
+          "type": "uint8"
+        },
+        {
+          "name": "ScanCount",
+          "type": "uint8"
+        },
+        {
+          "name": "NwkManagerAddr",
+          "type": "shortaddr"
+        }
+      ],
+      "response": [
+        {
+          "name": "Status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_MSG_CB_REGISTER",
+    "type": "SREQ",
+    "code": "0x3E",
+    "params": {
+      "request": [
+        {
+          "name": "ClusterId",
+          "type": "uint16",
+          "__comment": "cluster id here"
+        }
+      ],
+      "response": [
+        {
+          "name": "Status",
+          "type": "uint8",
+          "__comment": "recheck what is return value"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_MSG_CB_REMOVE",
+    "type": "SREQ",
+    "code": "0x3F",
+    "params": {
+      "request": [
+        {
+          "name": "ClusterId",
+          "type": "uint16",
+          "__comment": "cluster id here"
+        }
+      ],
+      "response": [
+        {
+          "name": "Status",
+          "type": "uint8",
+          "__comment": "recheck what is return value"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_STARTUP_FROM_APP",
+    "type": "SREQ",
+    "code": "0x40",
+    "params": {
+      "request": [
+        {
+          "name": "StartDelay",
+          "type": "uint16"
+        }
+      ],
+      "response": [
+        {
+          "name": "Status",
+          "type": "uint8",
+          "__comment": "status enum"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_AUTO_FIND_DESTINATION",
+    "type": "AREQ",
+    "code": "0x41",
+    "params": {
+      "request": [
+        {
+          "name": "Endpoint",
+          "type": "uint8",
+          "__comment": "endpoint here, create a new type for it?"
+        }
+      ],
+      "response": []
+    }
+  },
+  {
+    "commandId": "ZDO_NWK_ADDR_RSP",
+    "type": "AREQ",
+    "code": "0x80",
+    "params": {
+      "request": [
+        {
+          "name": "Status",
+          "type": "uint8",
+          "__comment": "boolean or enum?"
+        },
+        {
+          "name": "IEEEAddr",
+          "type": "longaddr"
+        },
+        {
+          "name": "NwkAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "StartIndex",
+          "type": "uint8"
+        },
+        {
+          "name": "NumAssocDev",
+          "type": "uint8"
+        },
+        {
+          "name": "AssocDevList",
+          "type": ["buffer", "NumAssocDev", 2],
+          "__comment": "list of shortaddr ?"
+        }
+      ],
+      "response": []
+    }
+  },
+  {
+    "commandId": "ZDO_IEEE_ADDR_RSP",
+    "type": "AREQ",
+    "code": "0x81",
+    "params": {
+      "request": [
+        {
+          "name": "Status",
+          "type": "uint8",
+          "__comment": "boolean or enum?"
+        },
+        {
+          "name": "IEEEAddr",
+          "type": "longaddr"
+        },
+        {
+          "name": "NwkAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "StartIndex",
+          "type": "uint8"
+        },
+        {
+          "name": "NumAssocDev",
+          "type": "uint8"
+        },
+        {
+          "name": "AssocDevList",
+          "type": ["buffer", "NumAssocDev", 2],
+          "__comment": "recheck, must be a list of ieee addresses not short addresses ?"
+        }
+      ],
+      "response": []
+    }
+  },
+  {
+    "commandId": "ZDO_NODE_DESC_RSP",
+    "type": "AREQ",
+    "code": "0x82",
+    "params": {
+      "request": [
+        {
+          "name": "SrcAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "Status",
+          "type": "uint8"
+        },
+        {
+          "name": "NWKAddrOfInterest",
+          "type": "shortaddr"
+        },
+        {
+          "name": "logicaltype_cmplxdescavai_userdescavai",
+          "type": "uint8",
+          "__comment": "bit field, better name"
+        },
+        {
+          "name": "apsflags_freqband",
+          "type": "uint8",
+          "__comment": "bit field, better name"
+        },
+        {
+          "name": "MacCapabilitiesFlags",
+          "type": "uint8",
+          "__comment": "enum"
+        },
+        {
+          "name": "ManufacturerCode",
+          "type": "uint16"
+        },
+        {
+          "name": "MaxBufferSize",
+          "type": "uint8"
+        },
+        {
+          "name": "MaxInTransferSize",
+          "type": "uint16"
+        },
+        {
+          "name": "ServerMask",
+          "type": "uint16",
+          "__comment": "bit field"
+        },
+        {
+          "name": "MaxOutTransferSize",
+          "type": "uint16"
+        },
+        {
+          "name": "DescriptorCapabilities",
+          "type": "uint8"
+        }
+      ],
+      "response": []
+    }
+  },
+  {
+    "commandId": "ZDO_POWER_DESC_RSP",
+    "type": "AREQ",
+    "code": "0x83",
+    "params": {
+      "request": [
+        {
+          "name": "SrcAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "Status",
+          "type": "uint8",
+          "__comment": "boolean?"
+        },
+        {
+          "name": "NWKAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "currentpowermode_avaipowersrc",
+          "type": "uint8",
+          "__comment": "bit field"
+        },
+        {
+          "name": "currentpowersrc_currentpowersrclevel",
+          "type": "uint8",
+          "__comment": "bit field"
+        }
+      ],
+      "response": []
+    }
+  },
+  {
+    "commandId": "ZDO_SIMPLE_DESC_RSP",
+    "type": "AREQ",
+    "code": "0x84",
+    "params": {
+      "request": [
+        {
+          "name": "SrcAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "Status",
+          "type": "uint8",
+          "__comment": "boolean?"
+        },
+        {
+          "name": "NWKAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "Len",
+          "type": "uint8"
+        },
+        {
+          "name": "Endpoint",
+          "type": "uint8"
+        },
+        {
+          "name": "ProfileId",
+          "type": "uint16"
+        },
+        {
+          "name": "DeviceId",
+          "type": "uint16"
+        },
+        {
+          "name": "DeviceVersion",
+          "type": "uint8",
+          "__comment": "device version bit field"
+        },
+        {
+          "name": "NumInClusters",
+          "type": "uint8"
+        },
+        {
+          "name": "InClusterList",
+          "type": ["buffer", "NumInClusters", 2]
+        },
+        {
+          "name": "NumOutClusters",
+          "type": "uint8"
+        },
+        {
+          "name": "OutClusterList",
+          "type": ["buffer", "NumOutClusters", 2]
+        }
+      ],
+      "response": []
+    }
+  },
+  {
+    "commandId": "ZDO_ACTIVE_EP_RSP",
+    "type": "AREQ",
+    "code": "0x85",
+    "params": {
+      "request": [
+        {
+          "name": "SrcAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "Status",
+          "type": "uint8",
+          "__comment": "boolean?"
+        },
+        {
+          "name": "NWKAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "ActiveEPCount",
+          "type": "uint8"
+        },
+        {
+          "name": "ActiveEPList",
+          "type": ["buffer", "ActiveEPCount", 1]
+        }
+      ],
+      "response": []
+    }
+  },
+  {
+    "commandId": "ZDO_MATCH_DESC_RSP",
+    "type": "AREQ",
+    "code": "0x86",
+    "params": {
+      "request": [
+        {
+          "name": "SrcAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "Status",
+          "type": "uint8",
+          "__comment": "boolean?"
+        },
+        {
+          "name": "NWKAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "MatchLength",
+          "type": "uint8"
+        },
+        {
+          "name": "MatchList",
+          "type": ["buffer", "MatchLength", 1]
+        }
+      ],
+      "response": []
+    }
+  },
+  {
+    "commandId": "ZDO_COMPLEX_DESC_RSP",
+    "type": "AREQ",
+    "code": "0x87",
+    "params": {
+      "request": [
+        {
+          "name": "SrcAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "Status",
+          "type": "uint8",
+          "__comment": "boolean?"
+        },
+        {
+          "name": "NWKAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "ComplexLength",
+          "type": "uint8"
+        },
+        {
+          "name": "ComplexDescriptor",
+          "type": ["buffer", "ComplexLength", 1]
+        }
+      ],
+      "response": []
+    }
+  },
+  {
+    "commandId": "ZDO_USER_DESC_RSP",
+    "type": "AREQ",
+    "code": "0x88",
+    "params": {
+      "request": [
+        {
+          "name": "SrcAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "Status",
+          "type": "uint8",
+          "__comment": "boolean?"
+        },
+        {
+          "name": "NWKAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "UserLength",
+          "type": "uint8"
+        },
+        {
+          "name": "UserDescriptor",
+          "type": ["buffer", "UserLength", 1]
+        }
+      ],
+      "response": []
+    }
+  },
+  {
+    "commandId": "ZDO_USER_DESC_CONF",
+    "type": "AREQ",
+    "code": "0x89",
+    "params": {
+      "request": [
+        {
+          "name": "SrcAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "Status",
+          "type": "uint8",
+          "__comment": "boolean?"
+        },
+        {
+          "name": "NWKAddr",
+          "type": "shortaddr"
+        }
+      ],
+      "response": []
+    }
+  },
+  {
+    "commandId": "ZDO_SERVER_DISC_RSP",
+    "type": "AREQ",
+    "code": "0x8A",
+    "params": {
+      "request": [
+        {
+          "name": "SrcAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "Status",
+          "type": "uint8",
+          "__comment": "boolean?"
+        },
+        {
+          "name": "ServerMask",
+          "type": "uint16",
+          "__comment": "bit field"
+        }
+      ],
+      "response": []
+    }
+  },
+  {
+    "commandId": "ZDO_END_DEVICE_BIND_RSP",
+    "type": "AREQ",
+    "code": "0xA0",
+    "params": {
+      "request": [
+        {
+          "name": "SrcAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "Status",
+          "type": "uint8"
+        }
+      ],
+      "response": []
+    }
+  },
+  {
+    "commandId": "ZDO_BIND_RSP",
+    "type": "AREQ",
+    "code": "0xA1",
+    "params": {
+      "request": [
+        {
+          "name": "SrcAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "status",
+          "type": "uint8"
+        }
+      ],
+      "response": []
+    }
+  },
+  {
+    "commandId": "ZDO_UNBIND_RSP",
+    "type": "AREQ",
+    "code": "0xA2",
+    "params": {
+      "request": [
+        {
+          "name": "SrcAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "Status",
+          "type": "uint8"
+        }
+      ],
+      "response": []
+    }
+  },
+  {
+    "commandId": "ZDO_MGMT_NWK_DISC_RSP",
+    "type": "AREQ",
+    "code": "0xB0",
+    "params": {
+      "request": [
+        {
+          "name": "SrcAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "Status",
+          "type": "uint8"
+        },
+        {
+          "name": "NetworkCount",
+          "type": "uint8"
+        },
+        {
+          "name": "StartIndex",
+          "type": "uint8"
+        },
+        {
+          "name": "NetworkListCount",
+          "type": "uint8"
+        },
+        {
+          "name": "NetworkList",
+          "type": ["buffer", "NetworkListCount", 6],
+          "__comment": "list of complex items"
+        }
+      ],
+      "response": []
+    }
+  },
+  {
+    "commandId": "ZDO_MGMT_LQI_RSP",
+    "type": "AREQ",
+    "code": "0xB1",
+    "params": {
+      "request": [
+        {
+          "name": "SrcAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "Status",
+          "type": "uint8"
+        },
+        {
+          "name": "NeighborTableEntries",
+          "type": "uint8"
+        },
+        {
+          "name": "StartIndex",
+          "type": "uint8"
+        },
+        {
+          "name": "NeighborLqiListCount",
+          "type": "uint8"
+        },
+        {
+          "name": "NeighborLqiList",
+          "type": ["buffer", "NeighborLqiListCount", 22],
+          "__comment": "list of complex items"
+        }
+      ],
+      "response": []
+    }
+  },
+  {
+    "commandId": "ZDO_MGMT_RTG_RSP",
+    "type": "AREQ",
+    "code": "0xB2",
+    "params": {
+      "request": [
+        {
+          "name": "SrcAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "Status",
+          "type": "uint8"
+        },
+        {
+          "name": "RoutingTableEntries",
+          "type": "uint8"
+        },
+        {
+          "name": "StartIndex",
+          "type": "uint8"
+        },
+        {
+          "name": "RoutingTableListCount",
+          "type": "uint8"
+        },
+        {
+          "name": "RoutingTableList",
+          "type": ["buffer", "RoutingTableListCount", 5],
+          "__comment": "list of complex items"
+        }
+      ],
+      "response": []
+    }
+  },
+  {
+    "commandId": "ZDO_MGMT_BIND_RSP",
+    "type": "AREQ",
+    "code": "0xB3",
+    "params": {
+      "request": [
+        {
+          "name": "SrcAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "status",
+          "type": "uint8"
+        },
+        {
+          "name": "BindTableEntries",
+          "type": "uint8"
+        },
+        {
+          "name": "StartIndex",
+          "type": "uint8"
+        },
+        {
+          "name": "BindTableListCount",
+          "type": "uint8"
+        },
+        {
+          "name": "BindTableList",
+          "type": ["buffer", "BindTableListCount", 20],
+          "__comment": "list of complex items"
+        }
+      ],
+      "response": []
+    }
+  },
+  {
+    "commandId": "ZDO_MGMT_LEAVE_RSP",
+    "type": "AREQ",
+    "code": "0xB4",
+    "params": {
+      "request": [
+        {
+          "name": "SrcAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "Status",
+          "type": "uint8"
+        }
+      ],
+      "response": []
+    }
+  },
+  {
+    "commandId": "ZDO_MGMT_DIRECT_JOIN_RSP",
+    "type": "AREQ",
+    "code": "0xB5",
+    "params": {
+      "request": [
+        {
+          "name": "SrcAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "Status",
+          "type": "uint8"
+        }
+      ],
+      "response": []
+    }
+  },
+  {
+    "commandId": "ZDO_MGMT_PERMIT_JOIN_RSP",
+    "type": "AREQ",
+    "code": "0xB6",
+    "params": {
+      "request": [
+        {
+          "name": "SrcAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "Status",
+          "type": "uint8"
+        }
+      ],
+      "response": []
+    }
+  },
+  {
+    "commandId": "ZDO_STATE_CHANGE_IND",
+    "type": "AREQ",
+    "code": "0xC0",
+    "params": {
+      "request": [
+        {
+          "name": "State",
+          "type": "uint8",
+          "__comment": "check type"
+        }
+      ],
+      "response": []
+    }
+  },
+  {
+    "commandId": "ZDO_END_DEVICE_ANNCE_IND",
+    "type": "AREQ",
+    "code": "0xC1",
+    "params": {
+      "request": [
+        {
+          "name": "SrcAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "NwkAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "IEEEAddr",
+          "type": "longaddr"
+        },
+        {
+          "name": "Capabilites",
+          "type": "uint8",
+          "__comment": "check bit field"
+        }
+      ],
+      "response": []
+    }
+  },
+  {
+    "commandId": "ZDO_MATCH_DESC_RSP_SENT",
+    "type": "AREQ",
+    "code": "0xC2",
+    "params": {
+      "request": [
+        {
+          "name": "NwkAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "NumInClusters",
+          "type": "uint8"
+        },
+        {
+          "name": "InClusterList",
+          "type": ["buffer", "NumInClusters", 2]
+        },
+        {
+          "name": "NumOutClusters",
+          "type": "uint8"
+        },
+        {
+          "name": "OutClusterList",
+          "type": ["buffer", "NumOutClusters", 2]
+        }
+      ],
+      "response": []
+    }
+  },
+  {
+    "commandId": "ZDO_STATUS_ERROR_RSP",
+    "type": "AREQ",
+    "code": "0xC3",
+    "params": {
+      "request": [
+        {
+          "name": "SrcAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "Status",
+          "type": "uint8"
+        }
+      ],
+      "response": []
+    }
+  },
+  {
+    "commandId": "ZDO_SRC_RTG_IND",
+    "type": "AREQ",
+    "code": "0xC4",
+    "params": {
+      "request": [
+        {
+          "name": "DstAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "RelayCount",
+          "type": "uint8"
+        },
+        {
+          "name": "RelayList",
+          "type": ["buffer", "RelayCount", 2]
+        }
+      ],
+      "response": []
+    }
+  },
+  {
+    "commandId": "ZDO_BEACON_NOTIFY_IND",
+    "type": "AREQ",
+    "code": "0xC5",
+    "params": {
+      "request": [
+        {
+          "name": "BeaconCount",
+          "type": "uint8"
+        },
+        {
+          "name": "BeaconList",
+          "type": ["buffer", "BeaconCount", 21],
+          "__comment": "complex data structure"
+        }
+      ],
+      "response": []
+    }
+  },
+  {
+    "commandId": "ZDO_JOIN_CNF",
+    "type": "AREQ",
+    "code": "0xC6",
+    "params": {
+      "request": [
+        {
+          "name": "Status",
+          "type": "uint8",
+          "__comment": "enum with join statuses"
+        },
+        {
+          "name": "DeviceAddress",
+          "type": "shortaddr"
+        },
+        {
+          "name": "ParentAddress",
+          "type": "shortaddr"
+        }
+      ],
+      "response": []
+    }
+  },
+  {
+    "commandId": "ZDO_NWK_DISCOVERY_CNF",
+    "type": "AREQ",
+    "code": "0xC7",
+    "params": {
+      "request": [
+        {
+          "name": "Status",
+          "type": "uint8",
+          "__comment": "enum with statuses"
+        }
+      ],
+      "response": []
+    }
+  },
+  {
+    "commandId": "ZDO_LEAVE_IND",
+    "type": "AREQ",
+    "code": "0xC9",
+    "params": {
+      "request": [
+        {
+          "name": "SrcAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "ExtAddr",
+          "type": "longaddr"
+        },
+        {
+          "name": "Request",
+          "type": "uint8",
+          "__comment": "maybe enum"
+        },
+        {
+          "name": "Remove",
+          "type": "uint8",
+          "__comment": "indicates to remove children, maybe enum"
+        },
+        {
+          "name": "rejoin",
+          "type": "uint8",
+          "__comment": "maybe enum"
+        }
+      ],
+      "response": []
+    }
+  },
+  {
+    "commandId": "ZDO_MSG_CB_INCOMING",
+    "type": "AREQ",
+    "code": "0xFF",
+    "params": {
+      "request": [
+        {
+          "name": "SrcAddr",
+          "type": "uint16"
+        },
+        {
+          "name": "WasBroadcast",
+          "type": "uint8",
+          "__comment": "boolean?"
+        },
+        {
+          "name": "ClusterId",
+          "type": "uint16"
+        },
+        {
+          "name": "SecurityUse",
+          "type": "uint8"
+        },
+        {
+          "name": "SeqNum",
+          "type": "uint8"
+        },
+        {
+          "name": "MacDstAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "Data",
+          "type": ["buffer", "eof"],
+          "__comment": "recheck how to parse this"
+        }
+      ],
+      "response": []
+    }
+  },
+  {
+    "commandId": "ZDO_NWK_ADDR_OF_INTEREST_REQ",
+    "type": "SREQ",
+    "code": "0x29",
+    "params": {
+      "request": [
+        {
+          "name": "shortaddr",
+          "type": "uint16"
+        },
+        {
+          "name": "nwkaddr",
+          "type": "uint16"
+        },
+        {
+          "name": "cmd",
+          "type": "uint8"
+        }
+      ],
+      "response": [
+        {
+          "name": "status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_SEC_ADD_LINK_KEY",
+    "type": "SREQ",
+    "code": "0x42",
+    "params": {
+      "request": [
+        {
+          "name": "shortaddr",
+          "type": "uint16"
+        },
+        {
+          "name": "extaddr",
+          "type": "longaddr"
+        },
+        {
+          "name": "linkkey",
+          "type": ["buffer", 16]
+        }
+      ],
+      "response": [
+        {
+          "name": "status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_SEC_ENTRY_LOOKUP_EXT",
+    "type": "SREQ",
+    "code": "0x43",
+    "params": {
+      "request": [
+        {
+          "name": "extaddr",
+          "type": "longaddr"
+        }
+      ],
+      "response": [
+        {
+          "name": "status",
+          "type": "uint8"
+        },
+        {
+          "name": "ami",
+          "type": "uint16"
+        },
+        {
+          "name": "keynvid",
+          "type": "uint16"
+        },
+        {
+          "name": "authenticateoption",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_SEC_DEVICE_REMOVE",
+    "type": "SREQ",
+    "code": "0x44",
+    "params": {
+      "request": [
+        {
+          "name": "extaddr",
+          "type": "longaddr"
+        }
+      ],
+      "response": [
+        {
+          "name": "status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_EXT_ROUTE_DISC",
+    "type": "SREQ",
+    "code": "0x45",
+    "params": {
+      "request": [
+        {
+          "name": "dstAddr",
+          "type": "uint16"
+        },
+        {
+          "name": "options",
+          "type": "uint8"
+        },
+        {
+          "name": "radius",
+          "type": "uint8"
+        }
+      ],
+      "response": [
+        {
+          "name": "status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_EXT_ROUTE_CHECK",
+    "type": "SREQ",
+    "code": "0x46",
+    "params": {
+      "request": [
+        {
+          "name": "dstaddr",
+          "type": "uint16"
+        },
+        {
+          "name": "rtstatus",
+          "type": "uint8"
+        },
+        {
+          "name": "options",
+          "type": "uint8"
+        }
+      ],
+      "response": [
+        {
+          "name": "status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_EXT_REMOVE_GROUP",
+    "type": "SREQ",
+    "code": "0x47",
+    "params": {
+      "request": [
+        {
+          "name": "endpoint",
+          "type": "uint8"
+        },
+        {
+          "name": "groupid",
+          "type": "uint16"
+        }
+      ],
+      "response": [
+        {
+          "name": "status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_EXT_REMOVE_ALL_GROUP",
+    "type": "SREQ",
+    "code": "0x48",
+    "params": {
+      "request": [
+        {
+          "name": "endpoint",
+          "type": "uint8"
+        }
+      ],
+      "response": [
+        {
+          "name": "status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_EXT_FIND_ALL_GROUPS_ENDPOINT",
+    "type": "SREQ",
+    "code": "0x49",
+    "params": {
+      "request": [
+        {
+          "name": "endpoint",
+          "type": "uint8"
+        }
+      ],
+      "response": [
+        {
+          "name": "groups",
+          "type": "uint8"
+        },
+        {
+          "name": "grouplist",
+          "type": ["buffer", "groups"]
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_EXT_FIND_GROUP",
+    "type": "SREQ",
+    "code": "0x4A",
+    "params": {
+      "request": [
+        {
+          "name": "endpoint",
+          "type": "uint8"
+        },
+        {
+          "name": "groupid",
+          "type": "uint16"
+        }
+      ],
+      "response": [
+        {
+          "name": "status",
+          "type": "uint8"
+        },
+        {
+          "name": "groupid",
+          "type": "uint16"
+        },
+        {
+          "name": "namelen",
+          "type": "uint8"
+        },
+        {
+          "name": "groupname",
+          "type": ["buffer", "namelen"]
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_EXT_ADD_GROUP",
+    "code": "0x4B",
+    "type": "SREQ",
+    "params": {
+      "request": [
+        {
+          "name": "Endpoint",
+          "type": "uint8"
+        },
+        {
+          "name": "GroupId",
+          "type": "uint16",
+          "__comment": "group id"
+        },
+        {
+          "name": "namelen",
+          "type": "uint8",
+          "__comment": "Differes from doc, doc specifies that name is 16 bytes and no len field is there"
+        },
+        {
+          "name": "groupname",
+          "type": [ "buffer", "namelen"]
+        }
+      ],
+      "response": [
+        {
+          "name": "status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_EXT_COUNT_ALL_GROUPS",
+    "type": "SREQ",
+    "code": "0x4C",
+    "params": {
+      "request": [],
+      "response": [
+        {
+          "name": "Status",
+          "type": "uint8",
+          "__comment": "total numbers of groups"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_EXT_RX_IDLE",
+    "type": "SREQ",
+    "code": "0x4D",
+    "params": {
+      "request": [
+        {
+          "name": "setFlag",
+          "type": "uint8"
+        },
+        {
+          "name": "setValue",
+          "type": "uint8"
+        }
+      ],
+      "response": [
+        {
+          "name": "Status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_EXT_UPDATE_NWK_KEY",
+    "type": "SREQ",
+    "code": "0x4E",
+    "params": {
+      "request": [
+        {
+          "name": "DestinationAddress",
+          "type": "uint16"
+        },
+        {
+          "name": "KeySeqNum",
+          "type": "uint8"
+        },
+        {
+          "name": "Key",
+          "type": ["buffer", "eof", 128]
+        }
+      ],
+      "response": [
+        {
+          "name": "Status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_EXT_SWITCH_NWK_KEY",
+    "type": "SREQ",
+    "code": "0x4F",
+    "params": {
+      "request": [
+        {
+          "name": "DestinationAddress",
+          "type": "uint16"
+        },
+        {
+          "name": "KeySeqNum",
+          "type": "uint8"
+        }
+      ],
+      "response": [
+        {
+          "name": "Status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_EXT_NWK_INFO",
+    "type": "SREQ",
+    "code": "0x50",
+    "__comment": "argument order differs from doc",
+    "params": {
+      "request": [],
+      "response": [
+        {
+          "name": "ShortAddress",
+          "type": "uint16"
+        },
+        {
+          "name": "devstate",
+          "type": "uint8"
+        },
+        {
+          "name": "PanId",
+          "type": "uint16"
+        },
+        {
+          "name": "ParentAddr",
+          "type": "uint16"
+        },
+        {
+          "name": "ExtendedPanId",
+          "type": "longaddr"
+        },
+        {
+          "name": "ParentExtAddr",
+          "type": "longaddr"
+        },
+        {
+          "name": "Channel",
+          "type": "uint8",
+          "__comment": "channel description"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_EXT_SEC_APS_REMOVE_REQ",
+    "type": "SREQ",
+    "code": "0x51",
+    "__comment": "arguments differ from doc",
+    "params": {
+      "request": [
+        {
+          "name": "ParentAddr",
+          "type": "uint16"
+        },
+        {
+          "name": "NwkAddr",
+          "type": "uint16"
+        },
+        {
+          "name": "ExtAddr",
+          "type": "longaddr"
+        }
+      ],
+      "response": [
+        {
+          "name": "Status",
+          "type": "uint8",
+          "__comment": "Status of removing device from the network"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_FORCE_CONCENTRATOR_CHANGE",
+    "type": "SREQ",
+    "code": "0x52",
+    "params": {
+      "request": [],
+      "response": []
+    }
+  },
+  {
+    "commandId": "ZDO_EXT_SET_PARAMS",
+    "type": "SREQ",
+    "code": "0x53",
+    "params": {
+      "request": [
+        {
+          "name": "useMulticast",
+          "type": "uint8"
+        }
+      ],
+      "response": [
+        {
+          "name": "Status",
+          "type": "uint8",
+          "__comment": "status use multicats?"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "ZDO_TC_DEVICE_IND",
+    "type": "AREQ",
+    "code": "0xCA",
+    "params": {
+      "request": [
+        {
+          "name": "SrcNwkAddr",
+          "type": "shortaddr"
+        },
+        {
+          "name": "SrcIEEEAddr",
+          "type": "longaddr"
+        },
+        {
+          "name": "ParentNwkAddr",
+          "type": "shortaddr"
+        }
+      ],
+      "response": []
+    }
+  },
+  {
+    "commandId": "ZDO_PERMIT_JOIN_IND",
+    "type": "AREQ",
+    "code": "0xCB",
+    "params": {
+      "request": [
+        {
+          "name": "PermitJoinDuration",
+          "type": "uint8"
+        }
+      ],
+      "response": []
+    }
+  }
+]

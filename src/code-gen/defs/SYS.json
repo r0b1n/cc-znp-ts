@@ -1,0 +1,992 @@
+[
+  {
+    "commandId": "SYS_RESET_REQ",
+    "code": "0x00",
+    "type": "AREQ",
+    "params": {
+      "request": [
+        {
+          "name": "type",
+          "type": "uint8"
+        }
+      ],
+      "response": []
+    }
+  },
+  {
+    "commandId": "SYS_PING",
+    "code": "0x01",
+    "type": "SREQ",
+    "params": {
+      "request": [],
+      "response": [
+        {
+          "name": "capabilities",
+          "type": "uint16",
+          "__comment": "make capabilities array / enum"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "SYS_VERSION",
+    "code": "0x02",
+    "type": "SREQ",
+    "params": {
+      "request": [],
+      "response": [
+        {
+          "name": "transportRev",
+          "type": "uint8"
+        },
+        {
+          "name": "productId",
+          "type": "uint8"
+        },
+        {
+          "name": "majorRel",
+          "type": "uint8"
+        },
+        {
+          "name": "minorRel",
+          "type": "uint8"
+        },
+        {
+          "name": "maintRel",
+          "type": "uint8"
+        },
+        {
+          "name": "revision",
+          "type": "uint32"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "SYS_SET_EXTADDR",
+    "code": "0x03",
+    "type": "SREQ",
+    "params": {
+      "request": [
+        {
+          "name": "extAddress",
+          "type": "longaddr"
+        }
+      ],
+      "response": [
+        {
+          "name": "status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "SYS_GET_EXTADDR",
+    "code": "0x04",
+    "type": "SREQ",
+    "params": {
+      "request": [],
+      "response": [
+        {
+          "name": "extAddress",
+          "type": "longaddr"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "SYS_RAM_READ",
+    "code": "0x05",
+    "type": "SREQ",
+    "params": {
+      "request": [
+        {
+          "name": "address",
+          "type": "uint16"
+        },
+        {
+          "name": "len",
+          "type": "uint8"
+        }
+      ],
+      "response": [
+        {
+          "name": "status",
+          "type": "uint8"
+        },
+        {
+          "name": "len",
+          "type": "uint8"
+        },
+        {
+          "name": "value",
+          "type": ["buffer", "len"]
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "SYS_RAM_WRITE",
+    "code": "0x06",
+    "type": "SREQ",
+    "params": {
+      "request": [
+        {
+          "name": "address",
+          "type": "uint16"
+        },
+        {
+          "name": "len",
+          "type": "uint8"
+        },
+        {
+          "name": "value",
+          "type": ["buffer", "len"]
+        }
+      ],
+      "response": [
+        {
+          "name": "status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "SYS_OSAL_NV_ITEM_INIT",
+    "code": "0x07",
+    "type": "SREQ",
+    "params": {
+      "request": [
+        {
+          "name": "id",
+          "type": "uint16"
+        },
+        {
+          "name": "itemLen",
+          "type": "uint16"
+        },
+        {
+          "name": "initLen",
+          "type": "uint8"
+        },
+        {
+          "name": "initData",
+          "type": ["buffer", "initLen"]
+        }
+      ],
+      "response": [
+        {
+          "name": "status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "SYS_OSAL_NV_READ",
+    "code": "0x08",
+    "type": "SREQ",
+    "params": {
+      "request": [
+        {
+          "name": "id",
+          "type": "uint16"
+        },
+        {
+          "name": "offset",
+          "type": "uint8"
+        }
+      ],
+      "response": [
+        {
+          "name": "status",
+          "type": "uint8"
+        },
+        {
+          "name": "len",
+          "type": "uint8"
+        },
+        {
+          "name": "value",
+          "type": ["buffer", "len"]
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "SYS_OSAL_NV_WRITE",
+    "code": "0x09",
+    "type": "SREQ",
+    "params": {
+      "request": [
+        {
+          "name": "id",
+          "type": "uint16"
+        },
+        {
+          "name": "offset",
+          "type": "uint8"
+        },
+        {
+          "name": "len",
+          "type": "uint8"
+        },
+        {
+          "name": "value",
+          "type": ["buffer", "len"]
+        }
+      ],
+      "response": [
+        {
+          "name": "status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "SYS_OSAL_START_TIMER",
+    "code": "0x0A",
+    "type": "SREQ",
+    "params": {
+      "request": [
+        {
+          "name": "id",
+          "type": "uint8"
+        },
+        {
+          "name": "timeout",
+          "type": "uint16"
+        }
+      ],
+      "response": [
+        {
+          "name": "status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "SYS_OSAL_STOP_TIMER",
+    "code": "0x0B",
+    "type": "SREQ",
+    "params": {
+      "request": [
+        {
+          "name": "id",
+          "type": "uint8"
+        }
+      ],
+      "response": [
+        {
+          "name": "status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "SYS_RANDOM",
+    "code": "0x0C",
+    "type": "SREQ",
+    "params": {
+      "request": [],
+      "response": [
+        {
+          "name": "value",
+          "type": "uint16"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "SYS_ADC_READ",
+    "code": "0x0D",
+    "type": "SREQ",
+    "params": {
+      "request": [
+        {
+          "name": "channel",
+          "type": "uint8",
+          "__comment": "// bit field"
+        },
+        {
+          "name": "resolution",
+          "type": "uint8",
+          "__comment": "// bit field"
+        }
+      ],
+      "response": [
+        {
+          "name": "value",
+          "type": "uint16"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "SYS_GPIO",
+    "code": "0x0E",
+    "type": "SREQ",
+    "params": {
+      "request": [
+        {
+          "name": "operation",
+          "type": "uint8",
+          "__comment": "// bit field"
+        },
+        {
+          "name": "value",
+          "type": "uint8"
+        }
+      ],
+      "response": [
+        {
+          "name": "value",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "SYS_STACK_TUNE",
+    "code": "0x0F",
+    "type": "SREQ",
+    "params": {
+      "request": [
+        {
+          "name": "operation",
+          "type": "uint8",
+          "__comment": " // bit field. enum"
+        },
+        {
+          "name": "value",
+          "type": "uint8"
+        }
+      ],
+      "response": [
+        {
+          "name": "value",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "SYS_SET_TIME",
+    "code": "0x10",
+    "type": "SREQ",
+    "params": {
+      "request": [
+        {
+          "name": "utc",
+          "type": "uint32"
+        },
+        {
+          "name": "hour",
+          "type": "uint8"
+        },
+        {
+          "name": "minute",
+          "type": "uint8"
+        },
+        {
+          "name": "second",
+          "type": "uint8"
+        },
+        {
+          "name": "month",
+          "type": "uint8"
+        },
+        {
+          "name": "day",
+          "type": "uint8"
+        },
+        {
+          "name": "year",
+          "type": "uint16"
+        }
+      ],
+      "response": [
+        {
+          "name": "status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "SYS_GET_TIME",
+    "code": "0x11",
+    "type": "SREQ",
+    "params": {
+      "request": [],
+      "response": [
+        {
+          "name": "utc",
+          "type": "uint32"
+        },
+        {
+          "name": "hour",
+          "type": "uint8"
+        },
+        {
+          "name": "minute",
+          "type": "uint8"
+        },
+        {
+          "name": "second",
+          "type": "uint8"
+        },
+        {
+          "name": "month",
+          "type": "uint8"
+        },
+        {
+          "name": "day",
+          "type": "uint8"
+        },
+        {
+          "name": "year",
+          "type": "uint16"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "SYS_OSAL_NV_DELETE",
+    "code": "0x12",
+    "type": "SREQ",
+    "params": {
+      "request": [
+        {
+          "name": "id",
+          "type": "uint16"
+        },
+        {
+          "name": "len",
+          "type": "uint16"
+        }
+      ],
+      "response": [
+        {
+          "name": "status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "SYS_OSAL_NV_LENGTH",
+    "code": "0x13",
+    "type": "SREQ",
+    "params": {
+      "request": [
+        {
+          "name": "id",
+          "type": "uint16"
+        }
+      ],
+      "response": [
+        {
+          "name": "length",
+          "type": "uint16"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "SYS_SET_TX_POWER",
+    "code": "0x14",
+    "type": "SREQ",
+    "params": {
+      "request": [
+        {
+          "name": "level",
+          "type": "uint8"
+        }
+      ],
+      "response": [
+        {
+          "name": "txPower",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "jammerParameters",
+    "code": "0x15",
+    "type": "SREQ",
+    "params": {
+      "request": [
+        {
+          "name": "jmrcntievents",
+          "type": "uint16"
+        },
+        {
+          "name": "jmrhinoiselvl",
+          "type": "uint8"
+        },
+        {
+          "name": "jmrdetectperiod",
+          "type": "uint32"
+        }
+      ],
+      "response": [
+        {
+          "name": "status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "snifferParameters",
+    "code": "0x16",
+    "type": "SREQ",
+    "params": {
+      "request": [
+        {
+          "name": "param",
+          "type": "uint8"
+        }
+      ],
+      "response": [
+        {
+          "name": "status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "SYS_ZDIAGS_INIT_STATS",
+    "code": "0x17",
+    "type": "SREQ",
+    "params": {
+      "request": [],
+      "response": [
+        {
+          "name": "status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "SYS_ZDIAGS_CLEAR_STATS",
+    "code": "0x18",
+    "type": "SREQ",
+    "params": {
+      "request": [
+        {
+          "name": "clearNV",
+          "type": "uint8",
+          "__comment": "it is boolean"
+        }
+      ],
+      "response": [
+        {
+          "name": "sysClock",
+          "type": "uint32"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "SYS_ZDIAGS_GET_STATS",
+    "code": "0x19",
+    "type": "SREQ",
+    "params": {
+      "request": [
+        {
+          "name": "attributeId",
+          "type": "uint16"
+        }
+      ],
+      "response": [
+        {
+          "name": "attributeValue",
+          "type": "uint32"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "SYS_ZDIAGS_RESTORE_STATS_NV",
+    "code": "0x1A",
+    "type": "SREQ",
+    "params": {
+      "request": [],
+      "response": [
+        {
+          "name": "status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "SYS_ZDIAGS_SAVE_STATS_TO_NV",
+    "code": "0x1B",
+    "type": "SREQ",
+    "params": {
+      "request": [],
+      "response": [
+        {
+          "name": "sysClock",
+          "type": "uint32"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "SYS_NV_CREATE",
+    "code": "0x30",
+    "type": "SREQ",
+    "params": {
+      "request": [
+        {
+          "name": "sysId",
+          "type": "uint8"
+        },
+        {
+          "name": "itemId",
+          "type": "uint16"
+        },
+        {
+          "name": "subId",
+          "type": "uint16"
+        },
+        {
+          "name": "len",
+          "type": "uint32"
+        }
+      ],
+      "response": [
+        {
+          "name": "status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "SYS_NV_DELETE",
+    "code": "0x31",
+    "type": "SREQ",
+    "params": {
+      "request": [
+        {
+          "name": "sysId",
+          "type": "uint8"
+        },
+        {
+          "name": "itemId",
+          "type": "uint16"
+        },
+        {
+          "name": "subId",
+          "type": "uint16"
+        }
+      ],
+      "response": [
+        {
+          "name": "status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "SYS_NV_LENGTH",
+    "code": "0x32",
+    "type": "SREQ",
+    "params": {
+      "request": [
+        {
+          "name": "sysId",
+          "type": "uint8"
+        },
+        {
+          "name": "itemId",
+          "type": "uint16"
+        },
+        {
+          "name": "subId",
+          "type": "uint16"
+        }
+      ],
+      "response": [
+        {
+          "name": "len",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "SYS_NV_READ",
+    "code": "0x33",
+    "type": "SREQ",
+    "params": {
+      "request": [
+        {
+          "name": "sysId",
+          "type": "uint8"
+        },
+        {
+          "name": "itemId",
+          "type": "uint16"
+        },
+        {
+          "name": "subId",
+          "type": "uint16"
+        },
+        {
+          "name": "offset",
+          "type": "uint16"
+        },
+        {
+          "name": "len",
+          "type": "uint8"
+        }
+      ],
+      "response": [
+        {
+          "name": "status",
+          "type": "uint8"
+        },
+        {
+          "name": "len",
+          "type": "uint8"
+        },
+        {
+          "name": "value",
+          "type": ["buffer", "len"]
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "SYS_NV_WRITE",
+    "code": "0x34",
+    "type": "SREQ",
+    "params": {
+      "request": [
+        {
+          "name": "sysId",
+          "type": "uint8"
+        },
+        {
+          "name": "itemId",
+          "type": "uint16"
+        },
+        {
+          "name": "subId",
+          "type": "uint16"
+        },
+        {
+          "name": "offset",
+          "type": "uint16"
+        },
+        {
+          "name": "len",
+          "type": "uint8"
+        },
+        {
+          "name": "value",
+          "type": ["buffer", "len"]
+        }
+      ],
+      "response": [
+        {
+          "name": "status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "SYS_NV_UPDATE",
+    "code": "0x35",
+    "type": "SREQ",
+    "params": {
+      "request": [
+        {
+          "name": "sysId",
+          "type": "uint8"
+        },
+        {
+          "name": "itemId",
+          "type": "uint16"
+        },
+        {
+          "name": "subId",
+          "type": "uint16"
+        },
+        {
+          "name": "len",
+          "type": "uint8"
+        },
+        {
+          "name": "value",
+          "type": ["buffer", "len"]
+        }
+      ],
+      "response": [
+        {
+          "name": "status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "SYS_NV_COMPACT",
+    "code": "0x36",
+    "type": "SREQ",
+    "params": {
+      "request": [
+        {
+          "name": "threshold",
+          "type": "uint16"
+        }
+      ],
+      "response": [
+        {
+          "name": "status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "SYS_OSAL_NV_READ_EXT",
+    "code": "0x1C",
+    "type": "SREQ",
+    "params": {
+      "request": [
+        {
+          "name": "id",
+          "type": "uint16"
+        },
+        {
+          "name": "offset",
+          "type": "uint16"
+        }
+      ],
+      "response": [
+        {
+          "name": "status",
+          "type": "uint8"
+        },
+        {
+          "name": "len",
+          "type": "uint8"
+        },
+        {
+          "name": "value",
+          "type": ["buffer", "len"]
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "SYS_OSAL_NV_WRITE_EXT",
+    "code": "0x1D",
+    "type": "SREQ",
+    "params": {
+      "request": [
+        {
+          "name": "id",
+          "type": "uint16"
+        },
+        {
+          "name": "offset",
+          "type": "uint16"
+        },
+        {
+          "name": "len",
+          "type": "uint16"
+        },
+        {
+          "name": "value",
+          "type": ["buffer", "len"]
+        }
+      ],
+      "response": [
+        {
+          "name": "status",
+          "type": "uint8"
+        }
+      ]
+    }
+  },
+  {
+    "commandId": "SYS_RESET_IND",
+    "code": "0x80",
+    "type": "AREQ",
+    "params": {
+      "request": [
+        {
+          "name": "reason",
+          "type": "uint8"
+        },
+        {
+          "name": "transportRev",
+          "type": "uint8"
+        },
+        {
+          "name": "productId",
+          "type": "uint8"
+        },
+        {
+          "name": "majorRel",
+          "type": "uint8"
+        },
+        {
+          "name": "minorRel",
+          "type": "uint8"
+        },
+        {
+          "name": "hwRev",
+          "type": "uint8"
+        }
+      ],
+      "response": []
+    }
+  },
+  {
+    "commandId": "SYS_OSAL_TIMER_EXPIRED",
+    "code": "0x81",
+    "type": "AREQ",
+    "params": {
+      "request": [
+        {
+          "name": "id",
+          "type": "uint8"
+        }
+      ],
+      "response": []
+    }
+  },
+  {
+    "commandId": "jammerInd",
+    "code": "0xFF",
+    "type": "AREQ",
+    "params": {
+      "request": [
+        {
+          "name": "jammerind",
+          "type": "uint8"
+        }
+      ],
+      "response": []
+    }
+  }
+]
